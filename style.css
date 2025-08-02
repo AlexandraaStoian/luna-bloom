@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+  font-family: 'Georgia', serif;
+  background-color: #fdf8f4;
+  color: #444;
+}
+
+header {
+  background-color: #f3d6dc;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 48px;
+  color: #9a6e7b;
+}
+
+.slogan {
+  font-style: italic;
+  font-size: 20px;
+  color: #6e4f57;
+}
+
+.about, .collection {
+  padding: 40px 20px;
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+}
+
+.product-grid {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.product-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 0 10px #e5d7d7;
+  padding: 10px;
+  width: 150px;
+}
+
+.product-card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.button {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 10px 25px;
+  background-color: #d4af37;
+  color: white;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+footer {
+  background-color: #f3d6dc;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+}
