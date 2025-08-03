@@ -5,10 +5,9 @@
   <title>Produse - Luna Bloom</title>
   <style>
     body {
-      font-family: 'Georgia', serif;
-      background-color: #fff8f6;
       margin: 0;
-      padding: 0;
+      font-family: Georgia, serif;
+      background-color: #fff8f6;
     }
     nav {
       background-color: #f2dcdc;
@@ -21,63 +20,55 @@
       color: #874c62;
       font-weight: bold;
     }
-    h1 {
-      text-align: center;
+    .icons {
+      float: right;
+      margin-right: 20px;
+    }
+    .icons a {
+      margin: 0 10px;
+      font-size: 18px;
+    }
+    h2 {
       color: #874c62;
+      text-align: center;
       margin-top: 40px;
     }
-    .categorie {
-      max-width: 1200px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-    .categorie h2 {
-      color: #874c62;
-      margin-bottom: 20px;
-      border-bottom: 2px solid #d9a5a5;
-      padding-bottom: 10px;
-    }
-    .produse {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-    .produs {
-      background-color: #f9e6e6;
-      border-radius: 10px;
+    .product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
       padding: 20px;
+    }
+    .product {
+      background-color: #fceeee;
+      padding: 20px;
+      border-radius: 10px;
+      width: 250px;
       text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
-    .produs img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 6px;
+    .product img {
+      width: 100%;
+      border-radius: 10px;
     }
-    .produs h3 {
+    .product h3 {
       color: #874c62;
     }
-    .produs p {
+    .product p {
       color: #5b3c3c;
     }
-    .pret {
-      font-weight: bold;
-      color: #874c62;
-      margin: 10px 0;
+    .buttons {
+      margin-top: 10px;
     }
-    .butoane {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-    }
-    .butoane button {
-      padding: 8px 12px;
+    .buttons button {
+      margin: 5px;
+      padding: 8px 15px;
       background-color: #874c62;
       color: white;
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      font-size: 14px;
     }
     footer {
       background-color: #f2dcdc;
@@ -96,162 +87,156 @@
   <a href="despre-noi.html">Despre noi</a>
   <a href="produse.html">Produse</a>
   <a href="contact.html">Contact</a>
+  <span class="icons">
+    <a href="favorite.html">❤️</a>
+    <a href="cos.html">🛒</a>
+  </span>
 </nav>
 
-<h1>Produsele noastre</h1>
-
-<div class="categorie">
-  <h2>Colecția Petal Bloom</h2>
-  <div class="produse">
-    <div class="produs">
-      <h3>Floral Kiss - Ruj</h3>
-      <p>Un ruj cremos cu nuanță roz pudrat, ideal pentru un look natural și elegant.</p>
-      <p class="pret">65 lei</p>
-      <div class="butoane">
-        <button>Adaugă în coș</button>
-        <button>❤️</button>
-      </div>
+<h2 id="petal-bloom">Colecția Petal Bloom</h2>
+<div class="product-grid">
+  <div class="product">
+    <img src="poze/petal1.jpg" alt="Petal Eyeshadow">
+    <h3>Petal Eyeshadow</h3>
+    <p>O paletă delicată cu nuanțe florale pastelate, perfectă pentru un machiaj natural și proaspăt.</p>
+    <p><strong>Preț: 65 lei</strong></p>
+    <div class="buttons">
+      <button onclick="addToFavorites('Petal Eyeshadow')">❤️ Favorite</button>
+      <button onclick="addToCart('Petal Eyeshadow')">🛒 Adaugă în coș</button>
     </div>
-    <div class="produs">
-      <h3>Peach Love - Ruj</h3>
-      <p>O nuanță caldă de piersică ce luminează fața și oferă un zâmbet plin de farmec.</p>
-      <p class="pret">65 lei</p>
-      <div class="butoane">
-        <button>Adaugă în coș</button>
-        <button>❤️</button>
-      </div>
+  </div>
+  <div class="product">
+    <img src="poze/petal2.jpg" alt="Soft Bloom Blush">
+    <h3>Soft Bloom Blush</h3>
+    <p>Un fard de obraz în nuanțe de piersică, ideal pentru un look delicat și proaspăt.</p>
+    <p><strong>Preț: 55 lei</strong></p>
+    <div class="buttons">
+      <button onclick="addToFavorites('Soft Bloom Blush')">❤️ Favorite</button>
+      <button onclick="addToCart('Soft Bloom Blush')">🛒 Adaugă în coș</button>
     </div>
-    <div class="produs">
-      <h3>Blooming Petals - Blush</h3>
-      <p>Un blush catifelat cu reflexii florale, perfect pentru obraji prospeți.</p>
-      <p class="pret">70 lei</p>
-      <div class="butoane">
-        <button>Adaugă în coș</button>
-        <button>❤️</button>
-      </div>
+  </div>
+  <div class="product">
+    <img src="poze/petal3.jpg" alt="Bloom Kiss Lipstick">
+    <h3>Bloom Kiss Lipstick</h3>
+    <p>Ruj catifelat cu finish lucios, în nuanțe de roz natural – perfect pentru un zâmbet luminos.</p>
+    <p><strong>Preț: 50 lei</strong></p>
+    <div class="buttons">
+      <button onclick="addToFavorites('Bloom Kiss Lipstick')">❤️ Favorite</button>
+      <button onclick="addToCart('Bloom Kiss Lipstick')">🛒 Adaugă în coș</button>
     </div>
-    <div class="produs">
-      <h3>Soft Rosé - Blush</h3>
-      <p>Un ton roz pal inspirat de petalele trandafirilor de grădină.</p>
-      <p class="pret">70 lei</p>
-      <div class="butoane">
-        <button>Adaugă în coș</button>
-        <button>❤️</button>
-      </div>
+  </div>
+  <div class="product">
+    <img src="poze/petal4.jpg" alt="Rosy Day Lipstick">
+    <h3>Rosy Day Lipstick</h3>
+    <p>Un ruj cremos în nuanță de trandafir pal, ideal pentru machiajul de zi cu zi.</p>
+    <p><strong>Preț: 50 lei</strong></p>
+    <div class="buttons">
+      <button onclick="addToFavorites('Rosy Day Lipstick')">❤️ Favorite</button>
+      <button onclick="addToCart('Rosy Day Lipstick')">🛒 Adaugă în coș</button>
     </div>
-    <div class="produs">
-      <h3>Pastel Garden - Paletă</h3>
-      <p>O paletă de farduri cu tonuri pastelate florale, pentru un machiaj romantic.</p>
-      <p class="pret">80 lei</p>
-      <div class="butoane">
-        <button>Adaugă în coș</button>
-        <button>❤️</button>
-      </div>
+  </div>
+  <div class="product">
+    <img src="poze/petal5.jpg" alt="Pastel Touch Mascara">
+    <h3>Pastel Touch Mascara</h3>
+    <p>Rimel cu efect de alungire și volum, într-o nuanță subtilă și feminină.</p>
+    <p><strong>Preț: 60 lei</strong></p>
+    <div class="buttons">
+      <button onclick="addToFavorites('Pastel Touch Mascara')">❤️ Favorite</button>
+      <button onclick="addToCart('Pastel Touch Mascara')">🛒 Adaugă în coș</button>
     </div>
-    <div class="produs">
-      <h3>Daisy Glow - Paletă</h3>
-      <p>Culori inspirate de margarete și raze de soare, perfecte pentru vară.</p>
-      <p class="pret">80 lei</p>
-      <div class="butoane">
-        <button>Adaugă în coș</button>
-        <button>❤️</button>
-      </div>
+  </div>
+  <div class="product">
+    <img src="poze/petal6.jpg" alt="Dewy Cheek Blush">
+    <h3>Dewy Cheek Blush</h3>
+    <p>Blush cremos cu efect luminos, pentru un aspect natural și radios.</p>
+    <p><strong>Preț: 55 lei</strong></p>
+    <div class="buttons">
+      <button onclick="addToFavorites('Dewy Cheek Blush')">❤️ Favorite</button>
+      <button onclick="addToCart('Dewy Cheek Blush')">🛒 Adaugă în coș</button>
     </div>
-    <div class="produs">
-      <h3>BloomLash - Rimel</h3>
-      <p>Rimel negru intens pentru gene curbate și voluminoase, fără efect artificial.</p>
-      <p class="pret">55 lei</p>
-      <div class="butoane">
-        <button>Adaugă în coș</button>
-        <button>❤️</button>
-      </div>
-    </div>
-    <div class="produs">
-      <h3>Silk Touch - Pensule</h3>
-      <p>Set de pensule fine, ideale pentru aplicarea delicată a produselor.</p>
-      <p class="pret">75 lei</p>
-      <div class="butoane">
-        <button>Adaugă în coș</button>
-        <button>❤️</button>
-      </div>
+  </div>
+  <div class="product">
+    <img src="poze/petal7.jpg" alt="Soft Petals Brush Set">
+    <h3>Soft Petals Brush Set</h3>
+    <p>Set de pensule cu peri fini și mâner roz pudrat – pentru aplicare precisă și delicată.</p>
+    <p><strong>Preț: 80 lei</strong></p>
+    <div class="buttons">
+      <button onclick="addToFavorites('Soft Petals Brush Set')">❤️ Favorite</button>
+      <button onclick="addToCart('Soft Petals Brush Set')">🛒 Adaugă în coș</button>
     </div>
   </div>
 </div>
 
-<div class="categorie">
-  <h2>Colecția Velvet Grace</h2>
-  <div class="produse">
-    <div class="produs">
-      <h3>Velvet Rose - Ruj</h3>
-      <p>Un ruj catifelat, în nuanță de trandafiri uscați, pentru rafinament absolut.</p>
-      <p class="pret">68 lei</p>
-      <div class="butoane">
-        <button>Adaugă în coș</button>
-        <button>❤️</button>
-      </div>
+<h2 id="velvet-grace">Colecția Velvet Grace</h2>
+<div class="product-grid">
+  <div class="product">
+    <img src="poze/velvet1.jpg" alt="Velvet Palette">
+    <h3>Velvet Palette</h3>
+    <p>Paletă rafinată cu nuanțe bogate, inspirate de eleganța atemporală și farmecul vintage.</p>
+    <p><strong>Preț: 70 lei</strong></p>
+    <div class="buttons">
+      <button onclick="addToFavorites('Velvet Palette')">❤️ Favorite</button>
+      <button onclick="addToCart('Velvet Palette')">🛒 Adaugă în coș</button>
     </div>
-    <div class="produs">
-      <h3>Dusty Plum - Ruj</h3>
-      <p>O nuanță de prună mată, perfectă pentru un machiaj sofisticat de seară.</p>
-      <p class="pret">68 lei</p>
-      <div class="butoane">
-        <button>Adaugă în coș</button>
-        <button>❤️</button>
-      </div>
+  </div>
+  <div class="product">
+    <img src="poze/velvet2.jpg" alt="Rosy Flush Blush">
+    <h3>Rosy Flush Blush</h3>
+    <p>Fard de obraz cu subtonuri de trandafir, pentru un look clasic și sofisticat.</p>
+    <p><strong>Preț: 60 lei</strong></p>
+    <div class="buttons">
+      <button onclick="addToFavorites('Rosy Flush Blush')">❤️ Favorite</button>
+      <button onclick="addToCart('Rosy Flush Blush')">🛒 Adaugă în coș</button>
     </div>
-    <div class="produs">
-      <h3>Mauve Dream - Blush</h3>
-      <p>Blush cu subtonuri mov pentru un efect misterios și feminin.</p>
-      <p class="pret">72 lei</p>
-      <div class="butoane">
-        <button>Adaugă în coș</button>
-        <button>❤️</button>
-      </div>
+  </div>
+  <div class="product">
+    <img src="poze/velvet3.jpg" alt="Ruby Night Lipstick">
+    <h3>Ruby Night Lipstick</h3>
+    <p>Ruj intens, nuanță de roșu rubiniu – ideal pentru un look de seară elegant și memorabil.</p>
+    <p><strong>Preț: 55 lei</strong></p>
+    <div class="buttons">
+      <button onclick="addToFavorites('Ruby Night Lipstick')">❤️ Favorite</button>
+      <button onclick="addToCart('Ruby Night Lipstick')">🛒 Adaugă în coș</button>
     </div>
-    <div class="produs">
-      <h3>Grace Touch - Blush</h3>
-      <p>O nuanță caldă care se topește în piele, oferind o strălucire naturală.</p>
-      <p class="pret">72 lei</p>
-      <div class="butoane">
-        <button>Adaugă în coș</button>
-        <button>❤️</button>
-      </div>
+  </div>
+  <div class="product">
+    <img src="poze/velvet4.jpg" alt="Royal Mauve Lipstick">
+    <h3>Royal Mauve Lipstick</h3>
+    <p>Ruj cu tentă mov regal, perfect pentru machiaje sofisticate și îndrăznețe.</p>
+    <p><strong>Preț: 55 lei</strong></p>
+    <div class="buttons">
+      <button onclick="addToFavorites('Royal Mauve Lipstick')">❤️ Favorite</button>
+      <button onclick="addToCart('Royal Mauve Lipstick')">🛒 Adaugă în coș</button>
     </div>
-    <div class="produs">
-      <h3>Royal Mauve - Paletă</h3>
-      <p>Paletă regală în nuanțe de mov și bej pentru un look elegant de zi și seară.</p>
-      <p class="pret">80 lei</p>
-      <div class="butoane">
-        <button>Adaugă în coș</button>
-        <button>❤️</button>
-      </div>
+  </div>
+  <div class="product">
+    <img src="poze/velvet5.jpg" alt="Midnight Lash Mascara">
+    <h3>Midnight Lash Mascara</h3>
+    <p>Rimel cu efect dramatic și rezistență îndelungată – gene seducătoare pe tot parcursul zilei.</p>
+    <p><strong>Preț: 60 lei</strong></p>
+    <div class="buttons">
+      <button onclick="addToFavorites('Midnight Lash Mascara')">❤️ Favorite</button>
+      <button onclick="addToCart('Midnight Lash Mascara')">🛒 Adaugă în coș</button>
     </div>
-    <div class="produs">
-      <h3>Champagne Glow - Paletă</h3>
-      <p>Nuanțe sidefate și luminoase, ideale pentru iluminare delicată.</p>
-      <p class="pret">80 lei</p>
-      <div class="butoane">
-        <button>Adaugă în coș</button>
-        <button>❤️</button>
-      </div>
+  </div>
+  <div class="product">
+    <img src="poze/velvet6.jpg" alt="Grace Touch Blush">
+    <h3>Grace Touch Blush</h3>
+    <p>Blush pudră cu pigment elegant, potrivit pentru orice tip de ten.</p>
+    <p><strong>Preț: 55 lei</strong></p>
+    <div class="buttons">
+      <button onclick="addToFavorites('Grace Touch Blush')">❤️ Favorite</button>
+      <button onclick="addToCart('Grace Touch Blush')">🛒 Adaugă în coș</button>
     </div>
-    <div class="produs">
-      <h3>Volume Grace - Rimel</h3>
-      <p>Definește și alungește genele cu eleganță, fără să încarce.</p>
-      <p class="pret">55 lei</p>
-      <div class="butoane">
-        <button>Adaugă în coș</button>
-        <button>❤️</button>
-      </div>
-    </div>
-    <div class="produs">
-      <h3>Velvet Skin - Pensule</h3>
-      <p>Set de pensule ultra fine pentru aplicare uniformă și aspect profesional.</p>
-      <p class="pret">75 lei</p>
-      <div class="butoane">
-        <button>Adaugă în coș</button>
-        <button>❤️</button>
-      </div>
+  </div>
+  <div class="product">
+    <img src="poze/velvet7.jpg" alt="Elegant Bloom Brush Set">
+    <h3>Elegant Bloom Brush Set</h3>
+    <p>Set de pensule luxoase, cu design vintage și aplicare profesională.</p>
+    <p><strong>Preț: 80 lei</strong></p>
+    <div class="buttons">
+      <button onclick="addToFavorites('Elegant Bloom Brush Set')">❤️ Favorite</button>
+      <button onclick="addToCart('Elegant Bloom Brush Set')">🛒 Adaugă în coș</button>
     </div>
   </div>
 </div>
@@ -259,6 +244,24 @@
 <footer>
   &copy; 2025 Luna Bloom. Toate drepturile rezervate.
 </footer>
+
+<script>
+  const addToFavorites = (productName) => {
+    let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    if (!favorites.includes(productName)) {
+      favorites.push(productName);
+      localStorage.setItem("favorites", JSON.stringify(favorites));
+      alert(productName + " a fost adăugat la favorite!");
+    }
+  };
+
+  const addToCart = (productName) => {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.push(productName);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(productName + " a fost adăugat în coș!");
+  };
+</script>
 
 </body>
 </html>
