@@ -20,39 +20,65 @@
       color: #874c62;
       font-weight: bold;
     }
+    .icons {
+      float: right;
+      margin-right: 20px;
+    }
+    .icons a {
+      margin: 0 10px;
+      font-size: 18px;
+    }
     h2 {
       color: #874c62;
       text-align: center;
-      margin-top: 30px;
+      margin-top: 40px;
     }
-    ul {
-      list-style: none;
-      padding: 0;
-      max-width: 600px;
-      margin: 20px auto;
-    }
-    li {
+    .cart-item {
       background-color: #fceeee;
-      margin-bottom: 15px;
-      padding: 15px;
+      margin: 10px auto;
+      padding: 20px;
       border-radius: 10px;
+      width: 80%;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
-    button {
+    .cart-item button {
       background-color: #874c62;
       color: white;
       border: none;
-      padding: 8px 15px;
+      padding: 5px 10px;
       border-radius: 5px;
       cursor: pointer;
     }
-    .total {
+    .summary {
       text-align: center;
-      font-size: 18px;
+      margin-top: 30px;
+    }
+    .summary button {
+      background-color: #874c62;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .recommendations {
+      padding: 40px;
+      text-align: center;
+    }
+    .recommendations h3 {
       color: #874c62;
-      margin-top: 20px;
+    }
+    .recommendations .product {
+      display: inline-block;
+      background-color: #fceeee;
+      margin: 10px;
+      padding: 20px;
+      border-radius: 10px;
+      width: 220px;
     }
     footer {
       background-color: #f2dcdc;
@@ -71,13 +97,31 @@
   <a href="despre-noi.html">Despre noi</a>
   <a href="produse.html">Produse</a>
   <a href="contact.html">Contact</a>
+  <span class="icons">
+    <a href="favorite.html">❤️</a>
+    <a href="cos.html">🛒</a>
+  </span>
 </nav>
 
 <h2>Coșul tău de cumpărături</h2>
-<ul id="cart-items"></ul>
-<div class="total" id="total-price"></div>
-<div style="text-align: center; margin-top: 20px;">
-  <button onclick="finalizeazaComanda()">Plasează comanda</button>
+<div id="cart-items"></div>
+<div class="summary">
+  <p id="total">Total: 0 lei</p>
+  <button onclick="checkout()">Plasează comanda</button>
+</div>
+
+<div class="recommendations">
+  <h3>Favoritele clienților</h3>
+  <div class="product">
+    <p><strong>Petal Eyeshadow</strong></p>
+    <p>65 lei</p>
+    <button onclick="addToCart('Petal Eyeshadow')">🛒 Adaugă</button>
+  </div>
+  <div class="product">
+    <p><strong>Velvet Palette</strong></p>
+    <p>70 lei</p>
+    <button onclick="addToCart('Velvet Palette')">🛒 Adaugă</button>
+  </div>
 </div>
 
 <footer>
@@ -85,39 +129,59 @@
 </footer>
 
 <script>
-  function displayCart() {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const list = document.getElementById("cart-items");
-    const total = document.getElementById("total-price");
-    list.innerHTML = "";
-    let suma = 0;
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const priceList = {
+    "Petal Eyeshadow": 65,
+    "Soft Bloom Blush": 55,
+    "Velvet Palette": 70,
+    "Rosy Flush Blush": 60
+  };
 
-    cart.forEach((item, index) => {
-      const li = document.createElement("li");
-      li.innerHTML = `
-        <span>${item}</span>
-        <button onclick="stergeProdus(${index})">Șterge</button>
-      `;
-      list.appendChild(li);
-      let pret = parseFloat(item.match(/\d+/g));
-      suma += isNaN(pret) ? 50 : pret;
+  function renderCart() {
+    const container = document.getElementById("cart-items");
+    container.innerHTML = "";
+    let total = 0;
+    const itemCounts = {};
+
+    cart.forEach(item => {
+      itemCounts[item] = (itemCounts[item] || 0) + 1;
     });
 
-    total.textContent = `Total estimativ: ${suma} lei`;
+    for (const item in itemCounts) {
+      const count = itemCounts[item];
+      const price = priceList[item] * count;
+      total += price;
+      container.innerHTML += `
+        <div class="cart-item">
+          <span>${item} x${count} - ${price} lei</span>
+          <div>
+            <button onclick="addToCart('${item}')">+1</button>
+            <button onclick="removeItem('${item}')">Șterge</button>
+          </div>
+        </div>
+      `;
+    }
+
+    document.getElementById("total").textContent = `Total: ${total} lei`;
   }
 
-  function stergeProdus(index) {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.splice(index, 1);
+  function addToCart(product) {
+    cart.push(product);
     localStorage.setItem("cart", JSON.stringify(cart));
-    displayCart();
+    renderCart();
   }
 
-  function finalizeazaComanda() {
+  function removeItem(product) {
+    cart = cart.filter(item => item !== product);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+  }
+
+  function checkout() {
     window.location.href = "checkout.html";
   }
 
-  displayCart();
+  renderCart();
 </script>
 
 </body>
