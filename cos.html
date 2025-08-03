@@ -35,7 +35,6 @@
     .cart-item {
       display: flex;
       justify-content: space-between;
-      align-items: center;
       padding: 10px 0;
       border-bottom: 1px solid #ccc;
     }
@@ -49,10 +48,17 @@
       padding: 5px 10px;
       border-radius: 5px;
       cursor: pointer;
-      margin: 0 5px;
+    }
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .quantity-controls button {
+      padding: 2px 6px;
     }
     .total {
-      text-align: right;
+      text-align: center;
       margin-top: 20px;
       font-size: 18px;
       color: #874c62;
@@ -78,6 +84,9 @@
     }
     .suggestions {
       margin-top: 30px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
     }
     .suggestions h3 {
       color: #874c62;
@@ -88,6 +97,15 @@
     }
     .suggestions li {
       margin: 5px 0;
+    }
+    .suggestions button {
+      margin-left: 10px;
+      background-color: #874c62;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -105,19 +123,16 @@
 </nav>
 
 <h2>Coșul tău de cumpărături</h2>
-<div class="cart-container" id="cart-container">
-  <!-- Produsele din coș vor apărea aici -->
-</div>
-
+<div class="cart-container" id="cart-container"></div>
 <div class="total" id="total"></div>
 <button class="checkout" onclick="location.href='checkout.html'">Plasează comanda</button>
 
 <div class="suggestions">
   <h3>Favoritele clienților:</h3>
   <ul>
-    <li>Soft Bloom Blush - 55 lei</li>
-    <li>Velvet Palette - 70 lei</li>
-    <li>Silk Rose Lipstick - 58 lei</li>
+    <li>Soft Bloom Blush - 55 lei <button onclick="addToCart('Soft Bloom Blush')">Adaugă în coș</button></li>
+    <li>Velvet Palette - 70 lei <button onclick="addToCart('Velvet Palette')">Adaugă în coș</button></li>
+    <li>Silk Rose Lipstick - 58 lei <button onclick="addToCart('Silk Rose Lipstick')">Adaugă în coș</button></li>
   </ul>
 </div>
 
@@ -145,47 +160,63 @@
   const totalDisplay = document.getElementById("total");
 
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  let quantities = JSON.parse(localStorage.getItem("quantities")) || [];
 
   const updateCart = () => {
     cartContainer.innerHTML = "";
     let total = 0;
 
     cart.forEach((product, index) => {
-      const price = productPrices[product] || 0;
-      const quantity = quantities[index] || 1;
+      const price = productPrices[product.name] || 0;
+      const quantity = product.quantity || 1;
       const subtotal = price * quantity;
       total += subtotal;
 
       const item = document.createElement("div");
       item.className = "cart-item";
       item.innerHTML = `
-        <span>${product}</span>
-        <span>${subtotal} lei</span>
-        <div>
-          <button onclick="changeQuantity(${index}, -1)">-</button>
+        <span>${product.name}</span>
+        <div class="quantity-controls">
+          <button onclick="decreaseQuantity(${index})">-</button>
           <span>${quantity}</span>
-          <button onclick="changeQuantity(${index}, 1)">+</button>
-          <button onclick="removeItem(${index})">Șterge</button>
+          <button onclick="increaseQuantity(${index})">+</button>
         </div>
+        <span>${subtotal} lei</span>
+        <button onclick="removeItem(${index})">Șterge</button>
       `;
       cartContainer.appendChild(item);
     });
 
+    localStorage.setItem("cartTotal", total);
     totalDisplay.textContent = `Total: ${total} lei`;
+    localStorage.setItem("cart", JSON.stringify(cart));
   };
 
   const removeItem = (index) => {
     cart.splice(index, 1);
-    quantities.splice(index, 1);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    localStorage.setItem("quantities", JSON.stringify(quantities));
     updateCart();
   };
 
-  const changeQuantity = (index, delta) => {
-    quantities[index] = Math.max(1, (quantities[index] || 1) + delta);
-    localStorage.setItem("quantities", JSON.stringify(quantities));
+  const increaseQuantity = (index) => {
+    cart[index].quantity = (cart[index].quantity || 1) + 1;
+    updateCart();
+  };
+
+  const decreaseQuantity = (index) => {
+    if (cart[index].quantity > 1) {
+      cart[index].quantity--;
+    } else {
+      cart.splice(index, 1);
+    }
+    updateCart();
+  };
+
+  const addToCart = (name) => {
+    const existing = cart.find(item => item.name === name);
+    if (existing) {
+      existing.quantity = (existing.quantity || 1) + 1;
+    } else {
+      cart.push({ name, quantity: 1 });
+    }
     updateCart();
   };
 
