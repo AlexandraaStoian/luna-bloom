@@ -10,66 +10,75 @@
       margin: 0;
       padding: 0;
     }
-
     nav {
       background-color: #f2dcdc;
       padding: 15px;
       text-align: center;
     }
-
     nav a {
       margin: 0 15px;
       text-decoration: none;
       color: #874c62;
       font-weight: bold;
     }
-
-    main {
-      padding: 40px 20px;
-      max-width: 1000px;
-      margin: auto;
-    }
-
-    h1, h2 {
-      color: #874c62;
+    h1 {
       text-align: center;
+      color: #874c62;
+      margin-top: 40px;
     }
-
-    .product-grid {
+    .categorie {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .categorie h2 {
+      color: #874c62;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #d9a5a5;
+      padding-bottom: 10px;
+    }
+    .produse {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
-      margin-top: 30px;
     }
-
-    .product-card {
-      background-color: white;
-      border: 2px solid #f2dcdc;
+    .produs {
+      background-color: #f9e6e6;
       border-radius: 10px;
-      padding: 15px;
+      padding: 20px;
       text-align: center;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
-
-    .product-card h3 {
+    .produs img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+    }
+    .produs h3 {
+      color: #874c62;
+    }
+    .produs p {
+      color: #5b3c3c;
+    }
+    .pret {
+      font-weight: bold;
       color: #874c62;
       margin: 10px 0;
     }
-
-    .product-card p {
-      color: #5b3c3c;
+    .butoane {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
     }
-
-    .product-card button {
+    .butoane button {
+      padding: 8px 12px;
       background-color: #874c62;
       color: white;
       border: none;
-      padding: 10px 15px;
-      margin-top: 10px;
-      cursor: pointer;
       border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
     }
-
     footer {
       background-color: #f2dcdc;
       text-align: center;
@@ -89,32 +98,163 @@
   <a href="contact.html">Contact</a>
 </nav>
 
-<main>
-  <h1>Produsele noastre</h1>
+<h1>Produsele noastre</h1>
 
-  <h2 id="petal">🌸 Petal Collection</h2>
-  <div class="product-grid">
-    <!-- Produse Petal aici -->
-    <div class="product-card">
-      <h3>Petal Bloom Palette</h3>
-      <p>Paletă de farduri în nuanțe florale pastel.</p>
-      <button>Adaugă în coș</button>
+<div class="categorie">
+  <h2>Colecția Petal Bloom</h2>
+  <div class="produse">
+    <div class="produs">
+      <h3>Floral Kiss - Ruj</h3>
+      <p>Un ruj cremos cu nuanță roz pudrat, ideal pentru un look natural și elegant.</p>
+      <p class="pret">65 lei</p>
+      <div class="butoane">
+        <button>Adaugă în coș</button>
+        <button>❤️</button>
+      </div>
     </div>
-    <!-- etc... -->
-  </div>
-
-  <h2 id="velvet" style="margin-top: 60px;">🌺 Velvet Collection</h2>
-  <div class="product-grid">
-    <!-- Produse Velvet aici -->
-    <div class="product-card">
-      <h3>Velvet Touch Lipstick</h3>
-      <p>Ruj mat în nuanță de roz catifelat.</p>
-      <button>Adaugă în coș</button>
+    <div class="produs">
+      <h3>Peach Love - Ruj</h3>
+      <p>O nuanță caldă de piersică ce luminează fața și oferă un zâmbet plin de farmec.</p>
+      <p class="pret">65 lei</p>
+      <div class="butoane">
+        <button>Adaugă în coș</button>
+        <button>❤️</button>
+      </div>
     </div>
-    <!-- etc... -->
+    <div class="produs">
+      <h3>Blooming Petals - Blush</h3>
+      <p>Un blush catifelat cu reflexii florale, perfect pentru obraji prospeți.</p>
+      <p class="pret">70 lei</p>
+      <div class="butoane">
+        <button>Adaugă în coș</button>
+        <button>❤️</button>
+      </div>
+    </div>
+    <div class="produs">
+      <h3>Soft Rosé - Blush</h3>
+      <p>Un ton roz pal inspirat de petalele trandafirilor de grădină.</p>
+      <p class="pret">70 lei</p>
+      <div class="butoane">
+        <button>Adaugă în coș</button>
+        <button>❤️</button>
+      </div>
+    </div>
+    <div class="produs">
+      <h3>Pastel Garden - Paletă</h3>
+      <p>O paletă de farduri cu tonuri pastelate florale, pentru un machiaj romantic.</p>
+      <p class="pret">80 lei</p>
+      <div class="butoane">
+        <button>Adaugă în coș</button>
+        <button>❤️</button>
+      </div>
+    </div>
+    <div class="produs">
+      <h3>Daisy Glow - Paletă</h3>
+      <p>Culori inspirate de margarete și raze de soare, perfecte pentru vară.</p>
+      <p class="pret">80 lei</p>
+      <div class="butoane">
+        <button>Adaugă în coș</button>
+        <button>❤️</button>
+      </div>
+    </div>
+    <div class="produs">
+      <h3>BloomLash - Rimel</h3>
+      <p>Rimel negru intens pentru gene curbate și voluminoase, fără efect artificial.</p>
+      <p class="pret">55 lei</p>
+      <div class="butoane">
+        <button>Adaugă în coș</button>
+        <button>❤️</button>
+      </div>
+    </div>
+    <div class="produs">
+      <h3>Silk Touch - Pensule</h3>
+      <p>Set de pensule fine, ideale pentru aplicarea delicată a produselor.</p>
+      <p class="pret">75 lei</p>
+      <div class="butoane">
+        <button>Adaugă în coș</button>
+        <button>❤️</button>
+      </div>
+    </div>
   </div>
+</div>
 
-</main>
+<div class="categorie">
+  <h2>Colecția Velvet Grace</h2>
+  <div class="produse">
+    <div class="produs">
+      <h3>Velvet Rose - Ruj</h3>
+      <p>Un ruj catifelat, în nuanță de trandafiri uscați, pentru rafinament absolut.</p>
+      <p class="pret">68 lei</p>
+      <div class="butoane">
+        <button>Adaugă în coș</button>
+        <button>❤️</button>
+      </div>
+    </div>
+    <div class="produs">
+      <h3>Dusty Plum - Ruj</h3>
+      <p>O nuanță de prună mată, perfectă pentru un machiaj sofisticat de seară.</p>
+      <p class="pret">68 lei</p>
+      <div class="butoane">
+        <button>Adaugă în coș</button>
+        <button>❤️</button>
+      </div>
+    </div>
+    <div class="produs">
+      <h3>Mauve Dream - Blush</h3>
+      <p>Blush cu subtonuri mov pentru un efect misterios și feminin.</p>
+      <p class="pret">72 lei</p>
+      <div class="butoane">
+        <button>Adaugă în coș</button>
+        <button>❤️</button>
+      </div>
+    </div>
+    <div class="produs">
+      <h3>Grace Touch - Blush</h3>
+      <p>O nuanță caldă care se topește în piele, oferind o strălucire naturală.</p>
+      <p class="pret">72 lei</p>
+      <div class="butoane">
+        <button>Adaugă în coș</button>
+        <button>❤️</button>
+      </div>
+    </div>
+    <div class="produs">
+      <h3>Royal Mauve - Paletă</h3>
+      <p>Paletă regală în nuanțe de mov și bej pentru un look elegant de zi și seară.</p>
+      <p class="pret">80 lei</p>
+      <div class="butoane">
+        <button>Adaugă în coș</button>
+        <button>❤️</button>
+      </div>
+    </div>
+    <div class="produs">
+      <h3>Champagne Glow - Paletă</h3>
+      <p>Nuanțe sidefate și luminoase, ideale pentru iluminare delicată.</p>
+      <p class="pret">80 lei</p>
+      <div class="butoane">
+        <button>Adaugă în coș</button>
+        <button>❤️</button>
+      </div>
+    </div>
+    <div class="produs">
+      <h3>Volume Grace - Rimel</h3>
+      <p>Definește și alungește genele cu eleganță, fără să încarce.</p>
+      <p class="pret">55 lei</p>
+      <div class="butoane">
+        <button>Adaugă în coș</button>
+        <button>❤️</button>
+      </div>
+    </div>
+    <div class="produs">
+      <h3>Velvet Skin - Pensule</h3>
+      <p>Set de pensule ultra fine pentru aplicare uniformă și aspect profesional.</p>
+      <p class="pret">75 lei</p>
+      <div class="butoane">
+        <button>Adaugă în coș</button>
+        <button>❤️</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <footer>
   &copy; 2025 Luna Bloom. Toate drepturile rezervate.
