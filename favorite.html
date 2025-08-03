@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Favorite - Luna Bloom</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Georgia, serif;
+      background-color: #fff8f6;
+    }
+    nav {
+      background-color: #f2dcdc;
+      padding: 15px;
+      text-align: center;
+    }
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #874c62;
+      font-weight: bold;
+    }
+    h2 {
+      color: #874c62;
+      text-align: center;
+      margin-top: 40px;
+    }
+    .favorite-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 20px;
+    }
+    .favorite-item {
+      background-color: #fceeee;
+      padding: 20px;
+      border-radius: 10px;
+      width: 250px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .favorite-item h3 {
+      color: #874c62;
+    }
+    .favorite-item button {
+      margin-top: 10px;
+      padding: 8px 15px;
+      background-color: #874c62;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    footer {
+      background-color: #f2dcdc;
+      text-align: center;
+      padding: 20px;
+      color: #874c62;
+      font-size: 14px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Acasă</a>
+  <a href="despre-noi.html">Despre noi</a>
+  <a href="produse.html">Produse</a>
+  <a href="contact.html">Contact</a>
+  <span class="icons">
+    <a href="favorite.html">❤️</a>
+    <a href="cos.html">🛒</a>
+  </span>
+</nav>
+
+<h2>Produsele tale favorite</h2>
+<div class="favorite-grid" id="favoriteList">
+  <!-- Aici se vor încărca produsele favorite -->
+</div>
+
+<footer>
+  &copy; 2025 Luna Bloom. Toate drepturile rezervate.
+</footer>
+
+<script>
+  const favoriteList = document.getElementById("favoriteList");
+
+  let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+  if (favorites.length === 0) {
+    favoriteList.innerHTML = "<p style='text-align:center;'>Nu ai adăugat produse în favorite.</p>";
+  } else {
+    favorites.forEach(product => {
+      const item = document.createElement("div");
+      item.className = "favorite-item";
+      item.innerHTML = `
+        <h3>${product}</h3>
+        <button onclick="removeFromFavorites('${product}')">Șterge</button>
+      `;
+      favoriteList.appendChild(item);
+    });
+  }
+
+  function removeFromFavorites(name) {
+    favorites = favorites.filter(p => p !== name);
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+    location.reload();
+  }
+</script>
+
+</body>
+</html>
