@@ -25,9 +25,9 @@
     }
 
     main {
-      padding: 60px 20px;
       max-width: 600px;
-      margin: auto;
+      margin: 60px auto;
+      padding: 0 20px;
     }
 
     h1 {
@@ -38,23 +38,24 @@
     form {
       display: flex;
       flex-direction: column;
-      gap: 15px;
     }
 
     input, textarea {
+      margin-bottom: 20px;
       padding: 10px;
-      font-family: 'Georgia', serif;
-      border: 1px solid #d4a5a5;
+      font-size: 16px;
+      border: 1px solid #d9a5a5;
       border-radius: 5px;
     }
 
     button {
+      padding: 10px;
       background-color: #874c62;
       color: white;
       border: none;
-      padding: 10px;
-      cursor: pointer;
+      font-size: 16px;
       border-radius: 5px;
+      cursor: pointer;
     }
 
     footer {
@@ -79,9 +80,9 @@
 <main>
   <h1>Contact</h1>
   <form>
-    <input type="text" placeholder="Numele tău">
-    <input type="email" placeholder="Emailul tău">
-    <textarea rows="5" placeholder="Mesajul tău"></textarea>
+    <input type="text" placeholder="Nume complet" required>
+    <input type="email" placeholder="Adresă de email" required>
+    <textarea placeholder="Mesajul tău" rows="6" required></textarea>
     <button type="submit">Trimite</button>
   </form>
 </main>
