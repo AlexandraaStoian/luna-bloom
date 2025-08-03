@@ -1,283 +1,124 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>Produse - Luna Bloom</title>
-  <link rel="stylesheet" href="style.css" />
   <style>
-    .collection-title {
-      text-align: center;
-      font-size: 28px;
-      margin-top: 40px;
-      color: #9a6e7b;
+    body {
+      font-family: 'Georgia', serif;
+      background-color: #fff8f6;
+      margin: 0;
+      padding: 0;
     }
 
-    .product-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 25px;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .product-card {
-      background-color: white;
-      border-radius: 16px;
-      box-shadow: 0 0 12px #e3d5d5;
-      width: 220px;
+    nav {
+      background-color: #f2dcdc;
       padding: 15px;
       text-align: center;
     }
 
-    .product-card img {
-      width: 100%;
-      border-radius: 12px;
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #874c62;
+      font-weight: bold;
+    }
+
+    main {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    h1, h2 {
+      color: #874c62;
+      text-align: center;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .product-card {
+      background-color: white;
+      border: 2px solid #f2dcdc;
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
     }
 
     .product-card h3 {
-      margin-top: 10px;
-      font-size: 18px;
-      color: #6e4f57;
-    }
-
-    .product-card p {
-      font-size: 14px;
-      color: #555;
-    }
-
-    .price {
-      font-weight: bold;
+      color: #874c62;
       margin: 10px 0;
     }
 
-    .product-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 10px;
+    .product-card p {
+      color: #5b3c3c;
     }
 
-    .product-buttons button {
-      padding: 6px 10px;
+    .product-card button {
+      background-color: #874c62;
+      color: white;
       border: none;
-      border-radius: 20px;
-      background-color: #f3d6dc;
-      color: #6e4f57;
+      padding: 10px 15px;
+      margin-top: 10px;
       cursor: pointer;
-      font-size: 13px;
-      transition: background 0.2s;
+      border-radius: 5px;
     }
 
-    .product-buttons button:hover {
-      background-color: #e4c0c7;
+    footer {
+      background-color: #f2dcdc;
+      text-align: center;
+      padding: 20px;
+      color: #874c62;
+      font-size: 14px;
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Luna Bloom</h1>
-    <p class="slogan">Colecții create pentru feminitatea ta</p>
-  </header>
+<nav>
+  <a href="index.html">Acasă</a>
+  <a href="despre-noi.html">Despre noi</a>
+  <a href="produse.html">Produse</a>
+  <a href="contact.html">Contact</a>
+</nav>
 
-  <!-- Petal Collection -->
-  <h2 class="collection-title">🌸 Petal Collection</h2>
+<main>
+  <h1>Produsele noastre</h1>
+
+  <h2 id="petal">🌸 Petal Collection</h2>
   <div class="product-grid">
-
+    <!-- Produse Petal aici -->
     <div class="product-card">
-      <img src="https://i.imgur.com/wffyYcV.jpeg" alt="Petal Light">
-      <h3>Petal Light</h3>
-      <p>Paletă cu 9 nuanțe pastel, perfecte pentru machiaje romantice de zi.</p>
-      <p class="price">72 lei</p>
-      <div class="product-buttons">
-        <button>💖 Favorite</button>
-        <button>🛒 În coș</button>
-      </div>
+      <h3>Petal Bloom Palette</h3>
+      <p>Paletă de farduri în nuanțe florale pastel.</p>
+      <button>Adaugă în coș</button>
     </div>
-
-    <div class="product-card">
-      <img src="https://i.imgur.com/XshD28O.jpeg" alt="Peach Glow">
-      <h3>Peach Glow</h3>
-      <p>Paletă caldă cu nuanțe piersică și sidef, ideală pentru look-uri naturale.</p>
-      <p class="price">78 lei</p>
-      <div class="product-buttons">
-        <button>💖 Favorite</button>
-        <button>🛒 În coș</button>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <img src="https://i.imgur.com/IYw5nd5.jpeg" alt="Blush Rose">
-      <h3>Blush Rose</h3>
-      <p>Blush roz-pudrat ce oferă tenului un aspect proaspăt și luminos.</p>
-      <p class="price">58 lei</p>
-      <div class="product-buttons">
-        <button>💖 Favorite</button>
-        <button>🛒 În coș</button>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <img src="https://i.imgur.com/YwIFEvj.jpeg" alt="Blush Peach">
-      <h3>Blush Peach</h3>
-      <p>Blush piersică, catifelat și ușor de aplicat, pentru un ten scăldat în soare.</p>
-      <p class="price">60 lei</p>
-      <div class="product-buttons">
-        <button>💖 Favorite</button>
-        <button>🛒 În coș</button>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <img src="https://i.imgur.com/J8FQ27s.jpeg" alt="Bloom Kiss">
-      <h3>Bloom Kiss</h3>
-      <p>Ruj roz natural, perfect pentru un zâmbet delicat de zi.</p>
-      <p class="price">55 lei</p>
-      <div class="product-buttons">
-        <button>💖 Favorite</button>
-        <button>🛒 În coș</button>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <img src="https://i.imgur.com/4iPy0wo.jpeg" alt="Morning Kiss">
-      <h3>Morning Kiss</h3>
-      <p>Ruj lejer, hidratant, cu o nuanță subtilă de piersică.</p>
-      <p class="price">59 lei</p>
-      <div class="product-buttons">
-        <button>💖 Favorite</button>
-        <button>🛒 În coș</button>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <img src="https://i.imgur.com/lBD8KOn.jpeg" alt="Natural Bloom">
-      <h3>Natural Bloom</h3>
-      <p>Rimel pentru gene lungi și fine, cu aspect natural.</p>
-      <p class="price">65 lei</p>
-      <div class="product-buttons">
-        <button>💖 Favorite</button>
-        <button>🛒 În coș</button>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <img src="https://i.imgur.com/6fVdOwr.jpeg" alt="Petal Touch">
-      <h3>Petal Touch</h3>
-      <p>Set de 8 pensule în nuanțe pastel, perfecte pentru machiajul zilnic.</p>
-      <p class="price">80 lei</p>
-      <div class="product-buttons">
-        <button>💖 Favorite</button>
-        <button>🛒 În coș</button>
-      </div>
-    </div>
+    <!-- etc... -->
   </div>
 
-  <!-- Velvet Collection -->
-  <h2 class="collection-title">🌙 Velvet Collection</h2>
+  <h2 id="velvet" style="margin-top: 60px;">🌺 Velvet Collection</h2>
   <div class="product-grid">
-
+    <!-- Produse Velvet aici -->
     <div class="product-card">
-      <img src="https://i.imgur.com/wffyYcV.jpeg" alt="Velvet Gold">
-      <h3>Velvet Gold</h3>
-      <p>Paletă cu nuanțe intense aurii, pentru machiaje strălucitoare de seară.</p>
-      <p class="price">72 lei</p>
-      <div class="product-buttons">
-        <button>💖 Favorite</button>
-        <button>🛒 În coș</button>
-      </div>
+      <h3>Velvet Touch Lipstick</h3>
+      <p>Ruj mat în nuanță de roz catifelat.</p>
+      <button>Adaugă în coș</button>
     </div>
-
-    <div class="product-card">
-      <img src="https://i.imgur.com/XshD28O.jpeg" alt="Velvet Rose">
-      <h3>Velvet Rose</h3>
-      <p>Paletă cu tonuri de roz și bronz pentru priviri misterioase.</p>
-      <p class="price">78 lei</p>
-      <div class="product-buttons">
-        <button>💖 Favorite</button>
-        <button>🛒 În coș</button>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <img src="https://i.imgur.com/IYw5nd5.jpeg" alt="Blush Wine">
-      <h3>Blush Wine</h3>
-      <p>Blush burgundy fin, ideal pentru evidențierea obrajilor în serile elegante.</p>
-      <p class="price">58 lei</p>
-      <div class="product-buttons">
-        <button>💖 Favorite</button>
-        <button>🛒 În coș</button>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <img src="https://i.imgur.com/YwIFEvj.jpeg" alt="Blush Mauve">
-      <h3>Blush Mauve</h3>
-      <p>Nuanță discretă de mov pudrat, perfectă pentru machiaje sofisticate.</p>
-      <p class="price">60 lei</p>
-      <div class="product-buttons">
-        <button>💖 Favorite</button>
-        <button>🛒 În coș</button>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <img src="https://i.imgur.com/J8FQ27s.jpeg" alt="Velvet Red">
-      <h3>Velvet Red</h3>
-      <p>Ruj roșu intens, catifelat, pentru un look glam clasic.</p>
-      <p class="price">55 lei</p>
-      <div class="product-buttons">
-        <button>💖 Favorite</button>
-        <button>🛒 În coș</button>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <img src="https://i.imgur.com/4iPy0wo.jpeg" alt="Velvet Mauve">
-      <h3>Velvet Mauve</h3>
-      <p>Ruj mov închis, cu textură semi-mată și aplicare ușoară.</p>
-      <p class="price">59 lei</p>
-      <div class="product-buttons">
-        <button>💖 Favorite</button>
-        <button>🛒 În coș</button>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <img src="https://i.imgur.com/lBD8KOn.jpeg" alt="Lash Drama">
-      <h3>Lash Drama</h3>
-      <p>Rimel pentru gene voluminoase și dramatice, fără aglomerare.</p>
-      <p class="price">65 lei</p>
-      <div class="product-buttons">
-        <button>💖 Favorite</button>
-        <button>🛒 În coș</button>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <img src="https://i.imgur.com/6fVdOwr.jpeg" alt="Velvet Touch">
-      <h3>Velvet Touch</h3>
-      <p>Pensule cu mâner elegant, în nuanțe burgundy – pentru un machiaj perfect de seară.</p>
-      <p class="price">80 lei</p>
-      <div class="product-buttons">
-        <button>💖 Favorite</button>
-        <button>🛒 În coș</button>
-      </div>
-    </div>
+    <!-- etc... -->
   </div>
 
-  <footer>
-    <p>&copy; 2025 Luna Bloom. Toate drepturile rezervate.</p>
-  </footer>
-<footer style="background-color: #f2dcdc; text-align: center; padding: 20px; color: #874c62; font-size: 14px;">
+</main>
+
+<footer>
   &copy; 2025 Luna Bloom. Toate drepturile rezervate.
 </footer>
+
 </body>
-  <nav style="background-color: #f2dcdc; padding: 15px; text-align: center;">
-  <a href="index.html" style="margin: 0 15px; text-decoration: none; color: #874c62; font-weight: bold;">Acasă</a>
-  <a href="despre-noi.html" style="margin: 0 15px; text-decoration: none; color: #874c62; font-weight: bold;">Despre noi</a>
-  <a href="produse.html" style="margin: 0 15px; text-decoration: none; color: #874c62; font-weight: bold;">Produse</a>
-  <a href="contact.html" style="margin: 0 15px; text-decoration: none; color: #874c62; font-weight: bold;">Contact</a>
-</nav>
 </html>
