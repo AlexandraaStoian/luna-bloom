@@ -2,7 +2,7 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8">
-  <title>Coș de cumpărături - Luna Bloom</title>
+  <title>Coș - Luna Bloom</title>
   <style>
     body {
       margin: 0;
@@ -23,87 +23,36 @@
     h2 {
       color: #874c62;
       text-align: center;
-      margin-top: 40px;
-    }
-    .cart-grid {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-      padding: 20px;
-    }
-    .cart-item {
-      background-color: #fceeee;
-      padding: 20px;
-      border-radius: 10px;
-      width: 80%;
-      max-width: 500px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-    .cart-item h3 {
-      color: #874c62;
-    }
-    .cart-item input {
-      width: 50px;
-      padding: 5px;
-      margin-top: 10px;
-    }
-    .cart-item button {
-      padding: 8px 15px;
-      background-color: #874c62;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      margin-top: 10px;
-      cursor: pointer;
-    }
-    .totals {
-      text-align: center;
-      font-size: 18px;
-      color: #5b3c3c;
-      margin-top: 20px;
-    }
-    .checkout {
-      text-align: center;
       margin-top: 30px;
     }
-    .checkout button {
-      padding: 12px 25px;
-      background-color: #874c62;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
+    ul {
+      list-style: none;
+      padding: 0;
+      max-width: 600px;
+      margin: 20px auto;
     }
-    .suggestions {
-      padding: 30px;
-      text-align: center;
-    }
-    .suggestions h3 {
-      color: #874c62;
-    }
-    .suggestions .suggest-grid {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-top: 20px;
-    }
-    .suggestions .item {
+    li {
       background-color: #fceeee;
+      margin-bottom: 15px;
       padding: 15px;
       border-radius: 10px;
-      width: 200px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    .suggestions .item button {
-      margin-top: 10px;
-      padding: 6px 12px;
+    button {
       background-color: #874c62;
       color: white;
       border: none;
+      padding: 8px 15px;
       border-radius: 5px;
       cursor: pointer;
+    }
+    .total {
+      text-align: center;
+      font-size: 18px;
+      color: #874c62;
+      margin-top: 20px;
     }
     footer {
       background-color: #f2dcdc;
@@ -122,26 +71,13 @@
   <a href="despre-noi.html">Despre noi</a>
   <a href="produse.html">Produse</a>
   <a href="contact.html">Contact</a>
-  <span class="icons">
-    <a href="favorite.html">❤️</a>
-    <a href="cos.html">🛒</a>
-  </span>
 </nav>
 
 <h2>Coșul tău de cumpărături</h2>
-<div class="cart-grid" id="cartList"></div>
-
-<div class="totals" id="totalCost"></div>
-
-<div class="checkout">
-  <button onclick="finalizeOrder()">Plasează comanda</button>
-</div>
-
-<div class="suggestions">
-  <h3>Favoritele clienților</h3>
-  <div class="suggest-grid" id="suggestions">
-    <!-- Produse sugerate -->
-  </div>
+<ul id="cart-items"></ul>
+<div class="total" id="total-price"></div>
+<div style="text-align: center; margin-top: 20px;">
+  <button onclick="finalizeazaComanda()">Plasează comanda</button>
 </div>
 
 <footer>
@@ -149,95 +85,39 @@
 </footer>
 
 <script>
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const cartList = document.getElementById("cartList");
-  const totalCost = document.getElementById("totalCost");
+  function displayCart() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const list = document.getElementById("cart-items");
+    const total = document.getElementById("total-price");
+    list.innerHTML = "";
+    let suma = 0;
 
-  const prices = {
-    "Petal Eyeshadow": 65,
-    "Soft Bloom Blush": 55,
-    "Velvet Palette": 70,
-    "Rosy Flush Blush": 60,
-    "Blooming Rose Lipstick": 58,
-    "Silky Petal Lipstick": 52,
-    "Lash Whisper Mascara": 68,
-    "Delicate Touch Brushes": 80
-  };
-
-  let total = 0;
-  const quantities = {};
-
-  cart.forEach(product => {
-    if (!quantities[product]) quantities[product] = 0;
-    quantities[product]++;
-  });
-
-  if (cart.length === 0) {
-    cartList.innerHTML = "<p>Coșul tău este gol.</p>";
-  } else {
-    for (let item in quantities) {
-      const div = document.createElement("div");
-      div.className = "cart-item";
-      const itemTotal = prices[item] * quantities[item];
-      total += itemTotal;
-
-      div.innerHTML = `
-        <h3>${item}</h3>
-        <p>Preț unitar: ${prices[item]} lei</p>
-        <p>Cantitate: <input type="number" min="1" value="${quantities[item]}" onchange="updateQuantity('${item}', this.value)" /></p>
-        <p>Total produs: ${itemTotal} lei</p>
-        <button onclick="removeItem('${item}')">Șterge produsul</button>
+    cart.forEach((item, index) => {
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <span>${item}</span>
+        <button onclick="stergeProdus(${index})">Șterge</button>
       `;
-      cartList.appendChild(div);
-    }
-    totalCost.innerText = `Total comandă: ${total} lei`;
+      list.appendChild(li);
+      let pret = parseFloat(item.match(/\d+/g));
+      suma += isNaN(pret) ? 50 : pret;
+    });
+
+    total.textContent = `Total estimativ: ${suma} lei`;
   }
 
-  function removeItem(name) {
-    cart = cart.filter(item => item !== name);
+  function stergeProdus(index) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.splice(index, 1);
     localStorage.setItem("cart", JSON.stringify(cart));
-    location.reload();
+    displayCart();
   }
 
-  function updateQuantity(name, qty) {
-    qty = parseInt(qty);
-    cart = cart.filter(item => item !== name);
-    for (let i = 0; i < qty; i++) cart.push(name);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    location.reload();
+  function finalizeazaComanda() {
+    window.location.href = "checkout.html";
   }
 
-  function finalizeOrder() {
-    alert("Comanda a fost trimisă! Veți fi contactat în curând.");
-    localStorage.removeItem("cart");
-    location.reload();
-  }
-
-  // Produse sugerate
-  const suggestedProducts = [
-    "Silky Petal Lipstick",
-    "Delicate Touch Brushes",
-    "Rosy Flush Blush"
-  ];
-
-  const suggestions = document.getElementById("suggestions");
-
-  suggestedProducts.forEach(name => {
-    const item = document.createElement("div");
-    item.className = "item";
-    item.innerHTML = `
-      <h4>${name}</h4>
-      <button onclick="addToCart('${name}')">Adaugă în coș</button>
-    `;
-    suggestions.appendChild(item);
-  });
-
-  function addToCart(productName) {
-    cart.push(productName);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert(productName + " a fost adăugat în coș!");
-    location.reload();
-  }
+  displayCart();
 </script>
 
 </body>
