@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Finalizare comandă - Luna Bloom</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      background-color: #fff8f6;
+      margin: 0;
+      padding: 20px;
+    }
+    nav {
+      background-color: #f2dcdc;
+      padding: 15px;
+      text-align: center;
+    }
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #874c62;
+      font-weight: bold;
+    }
+    h2 {
+      color: #874c62;
+      text-align: center;
+    }
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #fceeee;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+      color: #5b3c3c;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .section {
+      margin-top: 30px;
+    }
+    .summary {
+      margin-top: 20px;
+      text-align: center;
+      color: #5b3c3c;
+    }
+    button {
+      margin-top: 30px;
+      width: 100%;
+      padding: 12px;
+      background-color: #874c62;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Acasă</a>
+  <a href="despre-noi.html">Despre noi</a>
+  <a href="produse.html">Produse</a>
+  <a href="contact.html">Contact</a>
+  <span class="icons">
+    <a href="favorite.html">❤️</a>
+    <a href="cos.html">🛒</a>
+  </span>
+</nav>
+
+<h2>Finalizare comandă</h2>
+<form id="checkoutForm">
+
+  <div class="section">
+    <label>Metodă de plată:</label>
+    <select id="paymentMethod" onchange="togglePaymentFields()">
+      <option value="card">Card</option>
+      <option value="ramburs">Plată la livrare</option>
+    </select>
+
+    <div id="cardFields">
+      <label>Număr card:</label>
+      <input type="text" placeholder="1234 5678 9012 3456">
+      <label>Data expirării:</label>
+      <input type="text" placeholder="MM/YY">
+      <label>CVV:</label>
+      <input type="text" placeholder="123">
+      <label><input type="checkbox"> Plătește cu Apple Pay</label>
+    </div>
+  </div>
+
+  <div class="section">
+    <label>Adresă de livrare:</label>
+    <input type="text" placeholder="Stradă, număr, bloc, apartament">
+    <label>Oraș:</label>
+    <input type="text" placeholder="București">
+    <label>Cod poștal:</label>
+    <input type="text" placeholder="010000">
+  </div>
+
+  <div class="section">
+    <label>Livrare prin:</label>
+    <select id="shippingMethod" onchange="calculateShipping()">
+      <option value="curier">Curier</option>
+      <option value="easybox">Easybox</option>
+    </select>
+  </div>
+
+  <div class="summary">
+    <p id="shippingCost">Transport: 15 lei</p>
+    <p id="finalTotal">Total final: calculăm...</p>
+    <p style="font-size: 14px; color: gray;">*Livrare gratuită la comenzi peste 199 lei</p>
+  </div>
+
+  <button type="button" onclick="submitOrder()">Confirmă comanda</button>
+</form>
+
+<script>
+  let totalProduse = JSON.parse(localStorage.getItem("cart")) || [];
+  let prices = {
+    "Petal Eyeshadow": 65,
+    "Soft Bloom Blush": 55,
+    "Velvet Palette": 70,
+    "Rosy Flush Blush": 60,
+    "Blooming Rose Lipstick": 58,
+    "Silky Petal Lipstick": 52,
+    "Lash Whisper Mascara": 68,
+    "Delicate Touch Brushes": 80
+  };
+
+  function calculeazaTotal() {
+    let count = {};
+    totalProduse.forEach(p => count[p] = (count[p] || 0) + 1);
+    let total = 0;
+    for (let p in count) total += (prices[p] || 0) * count[p];
+
+    let shipping = 0;
+    if (total < 199) {
+      const metoda = document.getElementById("shippingMethod").value;
+      shipping = metoda === "curier" ? 15 : 9.9;
+    }
+
+    document.getElementById("shippingCost").innerText = `Transport: ${shipping === 0 ? "Gratuit" : shipping + " lei"}`;
+    document.getElementById("finalTotal").innerText = `Total final: ${(total + shipping).toFixed(2)} lei`;
+  }
+
+  function togglePaymentFields() {
+    const method = document.getElementById("paymentMethod").value;
+    document.getElementById("cardFields").style.display = method === "card" ? "block" : "none";
+  }
+
+  function calculateShipping() {
+    calculeazaTotal();
+  }
+
+  function submitOrder() {
+    alert("Comanda a fost înregistrată! Vei primi un email de confirmare.");
+    localStorage.removeItem("cart");
+    window.location.href = "index.html";
+  }
+
+  window.onload = () => {
+    togglePaymentFields();
+    calculeazaTotal();
+  };
+</script>
+
+</body>
+</html>
