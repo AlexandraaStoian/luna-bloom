@@ -11,98 +11,84 @@
       padding: 0;
     }
 
-    header {
+    nav {
       background-color: #f2dcdc;
-      padding: 20px;
+      padding: 15px;
       text-align: center;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #874c62;
+      font-weight: bold;
+    }
+
+    main {
+      padding: 60px 20px;
+      max-width: 600px;
+      margin: auto;
     }
 
     h1 {
       color: #874c62;
+      text-align: center;
     }
 
-    .container {
-      max-width: 600px;
-      margin: 40px auto;
-      padding: 20px;
-      background-color: #ffffff;
-      border: 1px solid #e8c8c8;
-      border-radius: 10px;
-    }
-
-    label {
-      display: block;
-      margin-top: 15px;
-      color: #6b404f;
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
     }
 
     input, textarea {
-      width: 100%;
       padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #d4b4b4;
+      font-family: 'Georgia', serif;
+      border: 1px solid #d4a5a5;
       border-radius: 5px;
-      font-family: inherit;
     }
 
     button {
-      background-color: #f4c2c2;
-      color: #4c2c2c;
+      background-color: #874c62;
+      color: white;
       border: none;
-      padding: 10px 20px;
-      margin-top: 20px;
-      border-radius: 5px;
+      padding: 10px;
       cursor: pointer;
-      font-weight: bold;
+      border-radius: 5px;
     }
 
-    .info {
-      margin-top: 30px;
+    footer {
+      background-color: #f2dcdc;
       text-align: center;
-      color: #4f2a2a;
-    }
-
-    .info p {
-      margin: 5px;
+      padding: 20px;
+      color: #874c62;
+      font-size: 14px;
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>Contactează-ne</h1>
-</header>
+<nav>
+  <a href="index.html">Acasă</a>
+  <a href="despre-noi.html">Despre noi</a>
+  <a href="produse.html">Produse</a>
+  <a href="contact.html">Contact</a>
+</nav>
 
-<div class="container">
-  <p>Ne poți scrie oricând pentru întrebări, colaborări sau feedback. Răspundem cu drag!</p>
-
+<main>
+  <h1>Contact</h1>
   <form>
-    <label for="nume">Nume</label>
-    <input type="text" id="nume" name="nume" placeholder="Prenume Nume">
-
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" placeholder="exemplu@email.com">
-
-    <label for="mesaj">Mesaj</label>
-    <textarea id="mesaj" name="mesaj" rows="5" placeholder="Scrie mesajul aici..."></textarea>
-
+    <input type="text" placeholder="Numele tău">
+    <input type="email" placeholder="Emailul tău">
+    <textarea rows="5" placeholder="Mesajul tău"></textarea>
     <button type="submit">Trimite</button>
   </form>
+</main>
 
-  <div class="info">
-    <p>Email: lunabloom.contact@gmail.com</p>
-    <p>Instagram: @lunabloom.ro</p>
-    <p>TikTok: @lunabloom.ro</p>
-  </div>
-</div>
-<footer style="background-color: #f2dcdc; text-align: center; padding: 20px; color: #874c62; font-size: 14px;">
+<footer>
   &copy; 2025 Luna Bloom. Toate drepturile rezervate.
 </footer>
+
 </body>
-  <nav style="background-color: #f2dcdc; padding: 15px; text-align: center;">
-  <a href="index.html" style="margin: 0 15px; text-decoration: none; color: #874c62; font-weight: bold;">Acasă</a>
-  <a href="despre-noi.html" style="margin: 0 15px; text-decoration: none; color: #874c62; font-weight: bold;">Despre noi</a>
-  <a href="produse.html" style="margin: 0 15px; text-decoration: none; color: #874c62; font-weight: bold;">Produse</a>
-  <a href="contact.html" style="margin: 0 15px; text-decoration: none; color: #874c62; font-weight: bold;">Contact</a>
-</nav>
 </html>
