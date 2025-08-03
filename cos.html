@@ -20,29 +20,27 @@
       color: #874c62;
       font-weight: bold;
     }
-    .icons {
-      float: right;
-      margin-right: 20px;
-    }
-    .icons a {
-      margin: 0 10px;
-      font-size: 18px;
-    }
     h2 {
       color: #874c62;
       text-align: center;
       margin-top: 40px;
     }
-    .cart-item {
+    .cart-container {
+      max-width: 800px;
+      margin: 20px auto;
       background-color: #fceeee;
-      margin: 10px auto;
       padding: 20px;
       border-radius: 10px;
-      width: 80%;
+    }
+    .cart-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      padding: 10px 0;
+      border-bottom: 1px solid #ccc;
+    }
+    .cart-item:last-child {
+      border-bottom: none;
     }
     .cart-item button {
       background-color: #874c62;
@@ -51,34 +49,24 @@
       padding: 5px 10px;
       border-radius: 5px;
       cursor: pointer;
+      margin: 0 5px;
     }
-    .summary {
-      text-align: center;
-      margin-top: 30px;
+    .total {
+      text-align: right;
+      margin-top: 20px;
+      font-size: 18px;
+      color: #874c62;
     }
-    .summary button {
+    .checkout {
+      display: block;
+      margin: 30px auto;
       background-color: #874c62;
       color: white;
       padding: 10px 20px;
       border: none;
       border-radius: 5px;
-      font-size: 16px;
       cursor: pointer;
-    }
-    .recommendations {
-      padding: 40px;
-      text-align: center;
-    }
-    .recommendations h3 {
-      color: #874c62;
-    }
-    .recommendations .product {
-      display: inline-block;
-      background-color: #fceeee;
-      margin: 10px;
-      padding: 20px;
-      border-radius: 10px;
-      width: 220px;
+      font-size: 16px;
     }
     footer {
       background-color: #f2dcdc;
@@ -87,6 +75,19 @@
       color: #874c62;
       font-size: 14px;
       margin-top: 40px;
+    }
+    .suggestions {
+      margin-top: 30px;
+    }
+    .suggestions h3 {
+      color: #874c62;
+    }
+    .suggestions ul {
+      list-style: none;
+      padding: 0;
+    }
+    .suggestions li {
+      margin: 5px 0;
     }
   </style>
 </head>
@@ -104,24 +105,20 @@
 </nav>
 
 <h2>Coșul tău de cumpărături</h2>
-<div id="cart-items"></div>
-<div class="summary">
-  <p id="total">Total: 0 lei</p>
-  <button onclick="checkout()">Plasează comanda</button>
+<div class="cart-container" id="cart-container">
+  <!-- Produsele din coș vor apărea aici -->
 </div>
 
-<div class="recommendations">
-  <h3>Favoritele clienților</h3>
-  <div class="product">
-    <p><strong>Petal Eyeshadow</strong></p>
-    <p>65 lei</p>
-    <button onclick="addToCart('Petal Eyeshadow')">🛒 Adaugă</button>
-  </div>
-  <div class="product">
-    <p><strong>Velvet Palette</strong></p>
-    <p>70 lei</p>
-    <button onclick="addToCart('Velvet Palette')">🛒 Adaugă</button>
-  </div>
+<div class="total" id="total"></div>
+<button class="checkout" onclick="location.href='checkout.html'">Plasează comanda</button>
+
+<div class="suggestions">
+  <h3>Favoritele clienților:</h3>
+  <ul>
+    <li>Soft Bloom Blush - 55 lei</li>
+    <li>Velvet Palette - 70 lei</li>
+    <li>Silk Rose Lipstick - 58 lei</li>
+  </ul>
 </div>
 
 <footer>
@@ -129,59 +126,70 @@
 </footer>
 
 <script>
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const priceList = {
+  const productPrices = {
     "Petal Eyeshadow": 65,
     "Soft Bloom Blush": 55,
+    "Petal Whisper Lipstick": 58,
+    "Bloom Touch Blush": 56,
+    "Silk Rose Lipstick": 58,
     "Velvet Palette": 70,
-    "Rosy Flush Blush": 60
+    "Rosy Flush Blush": 60,
+    "Grace Bloom Blush": 62,
+    "Classic Red Lipstick": 60,
+    "Royal Plum Lipstick": 60,
+    "Volume Lash Mascara": 63,
+    "Elegance Brush Set": 78
   };
 
-  function renderCart() {
-    const container = document.getElementById("cart-items");
-    container.innerHTML = "";
+  const cartContainer = document.getElementById("cart-container");
+  const totalDisplay = document.getElementById("total");
+
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let quantities = JSON.parse(localStorage.getItem("quantities")) || [];
+
+  const updateCart = () => {
+    cartContainer.innerHTML = "";
     let total = 0;
-    const itemCounts = {};
 
-    cart.forEach(item => {
-      itemCounts[item] = (itemCounts[item] || 0) + 1;
-    });
+    cart.forEach((product, index) => {
+      const price = productPrices[product] || 0;
+      const quantity = quantities[index] || 1;
+      const subtotal = price * quantity;
+      total += subtotal;
 
-    for (const item in itemCounts) {
-      const count = itemCounts[item];
-      const price = priceList[item] * count;
-      total += price;
-      container.innerHTML += `
-        <div class="cart-item">
-          <span>${item} x${count} - ${price} lei</span>
-          <div>
-            <button onclick="addToCart('${item}')">+1</button>
-            <button onclick="removeItem('${item}')">Șterge</button>
-          </div>
+      const item = document.createElement("div");
+      item.className = "cart-item";
+      item.innerHTML = `
+        <span>${product}</span>
+        <span>${subtotal} lei</span>
+        <div>
+          <button onclick="changeQuantity(${index}, -1)">-</button>
+          <span>${quantity}</span>
+          <button onclick="changeQuantity(${index}, 1)">+</button>
+          <button onclick="removeItem(${index})">Șterge</button>
         </div>
       `;
-    }
+      cartContainer.appendChild(item);
+    });
 
-    document.getElementById("total").textContent = `Total: ${total} lei`;
-  }
+    totalDisplay.textContent = `Total: ${total} lei`;
+  };
 
-  function addToCart(product) {
-    cart.push(product);
+  const removeItem = (index) => {
+    cart.splice(index, 1);
+    quantities.splice(index, 1);
     localStorage.setItem("cart", JSON.stringify(cart));
-    renderCart();
-  }
+    localStorage.setItem("quantities", JSON.stringify(quantities));
+    updateCart();
+  };
 
-  function removeItem(product) {
-    cart = cart.filter(item => item !== product);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    renderCart();
-  }
+  const changeQuantity = (index, delta) => {
+    quantities[index] = Math.max(1, (quantities[index] || 1) + delta);
+    localStorage.setItem("quantities", JSON.stringify(quantities));
+    updateCart();
+  };
 
-  function checkout() {
-    window.location.href = "checkout.html";
-  }
-
-  renderCart();
+  updateCart();
 </script>
 
 </body>
