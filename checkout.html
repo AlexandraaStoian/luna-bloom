@@ -2,13 +2,12 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8">
-  <title>Finalizare comandă - Luna Bloom</title>
+  <title>Checkout - Luna Bloom</title>
   <style>
     body {
+      margin: 0;
       font-family: Georgia, serif;
       background-color: #fff8f6;
-      margin: 0;
-      padding: 20px;
     }
     nav {
       background-color: #f2dcdc;
@@ -21,48 +20,60 @@
       color: #874c62;
       font-weight: bold;
     }
-    h2 {
+    h2, h3 {
       color: #874c62;
       text-align: center;
     }
-    form {
+    .checkout-container {
       max-width: 600px;
-      margin: 0 auto;
+      margin: 20px auto;
       background-color: #fceeee;
-      padding: 30px;
+      padding: 20px;
       border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .form-group {
+      margin-bottom: 15px;
     }
     label {
       display: block;
-      margin-top: 20px;
-      color: #5b3c3c;
+      margin-bottom: 5px;
+      color: #874c62;
     }
-    input, select {
+    input[type="text"], select {
       width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
+      padding: 8px;
       border-radius: 5px;
+      border: 1px solid #ccc;
     }
-    .section {
-      margin-top: 30px;
+    .radio-group {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 15px;
     }
     .summary {
       margin-top: 20px;
+      font-size: 18px;
+      color: #874c62;
       text-align: center;
-      color: #5b3c3c;
     }
-    button {
-      margin-top: 30px;
-      width: 100%;
-      padding: 12px;
+    .confirm-btn {
+      display: block;
+      margin: 20px auto;
       background-color: #874c62;
       color: white;
+      padding: 10px 20px;
       border: none;
-      border-radius: 8px;
-      font-size: 16px;
+      border-radius: 5px;
       cursor: pointer;
+      font-size: 16px;
+    }
+    footer {
+      background-color: #f2dcdc;
+      text-align: center;
+      padding: 20px;
+      color: #874c62;
+      font-size: 14px;
+      margin-top: 40px;
     }
   </style>
 </head>
@@ -80,100 +91,100 @@
 </nav>
 
 <h2>Finalizare comandă</h2>
-<form id="checkoutForm">
-
-  <div class="section">
-    <label>Metodă de plată:</label>
-    <select id="paymentMethod" onchange="togglePaymentFields()">
+<div class="checkout-container">
+  <div class="form-group">
+    <label for="payment">Metoda de plată:</label>
+    <select id="payment">
       <option value="card">Card</option>
-      <option value="ramburs">Plată la livrare</option>
+      <option value="livrare">Plată la livrare</option>
     </select>
+  </div>
 
-    <div id="cardFields">
-      <label>Număr card:</label>
-      <input type="text" placeholder="1234 5678 9012 3456">
-      <label>Data expirării:</label>
-      <input type="text" placeholder="MM/YY">
-      <label>CVV:</label>
-      <input type="text" placeholder="123">
-      <label><input type="checkbox"> Plătește cu Apple Pay</label>
+  <div class="form-group" id="card-info" style="display:none">
+    <label for="card-number">Număr card:</label>
+    <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
+    <label for="expiry">Data expirării:</label>
+    <input type="text" id="expiry" placeholder="MM/AA">
+    <label for="cvv">CVV:</label>
+    <input type="text" id="cvv" placeholder="123">
+  </div>
+
+  <div class="form-group">
+    <label for="address">Adresă de livrare:</label>
+    <input type="text" id="address" placeholder="Strada, număr, oraș">
+  </div>
+
+  <div class="form-group">
+    <label>Modalitate de livrare:</label>
+    <div class="radio-group">
+      <label><input type="radio" name="delivery" value="curier" checked> Curier (15 lei)</label>
+      <label><input type="radio" name="delivery" value="easybox"> Easybox (9.90 lei)</label>
     </div>
   </div>
 
-  <div class="section">
-    <label>Adresă de livrare:</label>
-    <input type="text" placeholder="Stradă, număr, bloc, apartament">
-    <label>Oraș:</label>
-    <input type="text" placeholder="București">
-    <label>Cod poștal:</label>
-    <input type="text" placeholder="010000">
-  </div>
+  <div class="summary" id="summary">Total de plată: - lei</div>
+  <button class="confirm-btn" onclick="placeOrder()">Trimite comanda</button>
+</div>
 
-  <div class="section">
-    <label>Livrare prin:</label>
-    <select id="shippingMethod" onchange="calculateShipping()">
-      <option value="curier">Curier</option>
-      <option value="easybox">Easybox</option>
-    </select>
-  </div>
-
-  <div class="summary">
-    <p id="shippingCost">Transport: 15 lei</p>
-    <p id="finalTotal">Total final: calculăm...</p>
-    <p style="font-size: 14px; color: gray;">*Livrare gratuită la comenzi peste 199 lei</p>
-  </div>
-
-  <button type="button" onclick="submitOrder()">Confirmă comanda</button>
-</form>
+<footer>
+  &copy; 2025 Luna Bloom. Toate drepturile rezervate.
+</footer>
 
 <script>
-  let totalProduse = JSON.parse(localStorage.getItem("cart")) || [];
-  let prices = {
+  document.getElementById("payment").addEventListener("change", function() {
+    const cardInfo = document.getElementById("card-info");
+    cardInfo.style.display = this.value === "card" ? "block" : "none";
+  });
+
+  const productPrices = {
     "Petal Eyeshadow": 65,
     "Soft Bloom Blush": 55,
+    "Petal Whisper Lipstick": 58,
+    "Bloom Touch Blush": 56,
+    "Silk Rose Lipstick": 58,
     "Velvet Palette": 70,
     "Rosy Flush Blush": 60,
-    "Blooming Rose Lipstick": 58,
-    "Silky Petal Lipstick": 52,
-    "Lash Whisper Mascara": 68,
-    "Delicate Touch Brushes": 80
+    "Grace Bloom Blush": 62,
+    "Classic Red Lipstick": 60,
+    "Royal Plum Lipstick": 60,
+    "Volume Lash Mascara": 63,
+    "Elegance Brush Set": 78
   };
 
-  function calculeazaTotal() {
-    let count = {};
-    totalProduse.forEach(p => count[p] = (count[p] || 0) + 1);
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  const calculateTotal = () => {
     let total = 0;
-    for (let p in count) total += (prices[p] || 0) * count[p];
+    cart.forEach(product => {
+      total += productPrices[product] || 0;
+    });
+    return total;
+  };
 
-    let shipping = 0;
-    if (total < 199) {
-      const metoda = document.getElementById("shippingMethod").value;
-      shipping = metoda === "curier" ? 15 : 9.9;
+  const updateSummary = () => {
+    let total = calculateTotal();
+    const deliveryOption = document.querySelector("input[name='delivery']:checked").value;
+    if (total >= 199) {
+      total += 0;
+    } else if (deliveryOption === "curier") {
+      total += 15;
+    } else {
+      total += 9.90;
     }
+    document.getElementById("summary").textContent = `Total de plată: ${total.toFixed(2)} lei`;
+  };
 
-    document.getElementById("shippingCost").innerText = `Transport: ${shipping === 0 ? "Gratuit" : shipping + " lei"}`;
-    document.getElementById("finalTotal").innerText = `Total final: ${(total + shipping).toFixed(2)} lei`;
-  }
+  document.querySelectorAll("input[name='delivery']").forEach(input => {
+    input.addEventListener("change", updateSummary);
+  });
 
-  function togglePaymentFields() {
-    const method = document.getElementById("paymentMethod").value;
-    document.getElementById("cardFields").style.display = method === "card" ? "block" : "none";
-  }
+  window.addEventListener("load", updateSummary);
 
-  function calculateShipping() {
-    calculeazaTotal();
-  }
-
-  function submitOrder() {
-    alert("Comanda a fost înregistrată! Vei primi un email de confirmare.");
+  function placeOrder() {
+    alert("Comanda a fost trimisă cu succes!");
     localStorage.removeItem("cart");
     window.location.href = "index.html";
   }
-
-  window.onload = () => {
-    togglePaymentFields();
-    calculeazaTotal();
-  };
 </script>
 
 </body>
